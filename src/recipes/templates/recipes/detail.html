@@ -1,0 +1,12 @@
+{% extends 'recipes/recipes_home.html' %}
+
+{% block content %}
+    <h2>{{ recipe.name }}</h2>
+    <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}" style="width: 300px; height: auto;">
+    <p>{{ recipe.description }}</p>
+    <p><strong>Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
+    <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+    <p><strong>Difficulty:</strong> {{ recipe.calculate_difficulty }}</p>
+    <p><strong>Category:</strong> {{ recipe.category }}</p>
+    <a href="{% url 'recipes:list' %}" class="btn">Back to Recipes</a>
+{% endblock %}

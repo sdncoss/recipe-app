@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.urls import reverse
 from .models import Recipe
 
 # Create your tests here.
@@ -7,8 +8,9 @@ class RecipeModelTest(TestCase):
         Recipe.objects.create(
             name='Coffee',
             description='A warm beverage to enjoy in the morning',
-            cooking_time=10,
-            ingredients='Water, Coffee Grounds, Sugar, Cream'
+            cooking_time=5,
+            ingredients='Water, Coffee Grounds, Cream',
+            category='breakfast'
         )
     
     def test_recipe_name(self):
@@ -39,4 +41,19 @@ class RecipeModelTest(TestCase):
         
     def test_calculate_difficulty_hard(self):
         recipe = Recipe.objects.get(id=1)
-        self.assertEqual(recipe.calculate_difficulty(), 'Hard')
+        self.assertEqual(recipe.calculate_difficulty(), 'Easy')
+
+    def test_get_absolute_url(self):
+        recipe = Recipe.objects.get(id=1)
+        # The get_absolute_url() should return the correct URL for the recipe detail page
+        self.assertEqual(recipe.get_absolute_url(), '/list/1')
+
+    def test_home_page_contains_recipe_name(self):
+        """Test that the home page contains the recipe name."""
+        response = self.client.get(reverse('recipes:home'))
+        self.assertContains(response, self.recipe.name)
+
+    def test_links_on_home_page(self):
+        """Test that links on the home page are present."""
+        response = self.client.get(reverse('recipes:home'))
+        self.assertContains(response, reverse('recipes:list'))

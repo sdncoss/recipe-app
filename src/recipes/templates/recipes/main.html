@@ -1,0 +1,16 @@
+{% extends 'recipes/recipes_home.html' %}
+
+{% block content %}
+    <h2>Recipes</h2>
+    <div class="recipe-grid">
+        {% for object in object_list %}
+            <div class="recipe-card">
+                <h2>{{object.name}}</h2>
+                <img src="{{object.pic.url}}" height="200" />
+                <p>{{ object.description }}</p>
+                <a href="{{object.get_absolute_url}}" class="btn">View Recipe</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
