@@ -48,12 +48,4 @@ class RecipeModelTest(TestCase):
         # The get_absolute_url() should return the correct URL for the recipe detail page
         self.assertEqual(recipe.get_absolute_url(), '/list/1')
 
-    def test_home_page_contains_recipe_name(self):
-        """Test that the home page contains the recipe name."""
-        response = self.client.get(reverse('recipes:home'))
-        self.assertContains(response, self.recipe.name)
-
-    def test_links_on_home_page(self):
-        """Test that links on the home page are present."""
-        response = self.client.get(reverse('recipes:home'))
-        self.assertContains(response, reverse('recipes:list'))
+    

@@ -1,0 +1,18 @@
+{% extends 'recipes/recipes_home.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <h2>Stir Crazy: Welcome to Your Kitchen Adventure!</h2>
+        <p>Discover bold, fun, and creative recipes to spice up your meals.<br> Whether you’re a culinary master or a
+        kitchen newbie, you’re just a whisk away from something delicious!</p><br>
+        <h2>Login</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+        
+    
+{% endblock content %}

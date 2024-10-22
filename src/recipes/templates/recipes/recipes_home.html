@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,28 +20,19 @@
                 <h3>Let’s Get Stir Crazy in the Kitchen!</h3>
             </div>
             <ul class="nav-links">
+                {% if user.is_authenticated %}
                 <li><a href="{% url 'recipes:list' %}">All Recipes</a></li>
+                <li><a href="{% url 'recipes:success' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'recipes:login' %}">Login</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
 
     <main>
-        <div class="container">
-            <h2>Stir Crazy: Welcome to Your Kitchen Adventure!</h2>
-            <p>Discover bold, fun, and creative recipes to spice up your meals. Whether you’re a culinary master or a
-                kitchen newbie, you’re just a whisk away from something delicious!</p>
-            <div class="recipe-grid">
-                {% for recipe in recipes %}
-                <div class="recipe-card">
-                    <h2>{{ recipe.name }}</h2>
-                    <img src="{{ recipe.pic.url }}" height="200" alt="Recipe Image" />
-                    <p>{{ recipe.description }}</p>
-                    <a href="{{ recipe.get_absolute_url }}" class="btn">View Recipe</a>
-                </div>
-                {% endfor %}
-            </div>
-            {% block content %}
-            {% endblock content %}
+        {% block content %}
+        {% endblock content %}
         </div>
     </main>
 

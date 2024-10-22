@@ -1,0 +1,13 @@
+{% extends 'recipes/recipes_home.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container">
+        <h2>You have successfully Logged Out</h2>
+        <a href="{% url 'recipes:login' %}" class="btn">Login Again</a>
+        <img src="{% static 'recipes/images/welcome_kitchen.png' %}" alt="kitchen" width="500">
+    </div>
+        
+    
+{% endblock content %}

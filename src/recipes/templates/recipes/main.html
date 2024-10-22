@@ -1,6 +1,7 @@
 {% extends 'recipes/recipes_home.html' %}
 
 {% block content %}
+<div class="container">
     <h2>Recipes</h2>
     <div class="recipe-grid">
         {% for object in object_list %}
@@ -12,5 +13,6 @@
             </div>
         {% endfor %}
     </div>
+</div>
 {% endblock %}
 
