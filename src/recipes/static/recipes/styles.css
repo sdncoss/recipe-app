@@ -74,7 +74,10 @@ p {
     color: #666;
 }
 
-
+a {
+    text-decoration: none;
+    color: #DBB0A3;
+}
 
 /* Recipe cards styling */
 .recipe-grid {
@@ -146,6 +149,53 @@ p {
     background-color: #F2DBB5; /* Sandy tan */
     color: #333;
 }
+
+/* Table styling */
+/* src/recipes/static/recipes/styles.css */
+
+/* Overall table styles */
+.table {
+    width: 100%; /* Full-width */
+    border-collapse: collapse; /* Merge borders */
+    margin: 20px 0; /* Space above and below */
+    background-color: #F2DBB5; /* Background color for the table */
+}
+
+/* Table header styles */
+.table th {
+    background-color: #D0DBCF; /* Light background for headers */
+    color: #DBB0A3; /* Text color for headers */
+    padding: 12px; /* Padding for header cells */
+    text-align: left; /* Left-aligned text */
+    border: 1px solid #DBB0A3; /* Border color for headers */
+    text-transform: capitalize; /* Capitalizes header text */
+}
+
+/* Table cell styles */
+.table td {
+    border: 1px solid #DBB0A3; /* Light border */
+    padding: 10px; /* Padding for cells */
+    text-align: left; /* Left-aligned text */
+    background-color: #F5F3EA; /* Light background for cells */
+}
+
+/* Hover effect for table rows */
+.table tr:hover {
+    background-color: #D0DBCF; /* Highlight row on hover */
+}
+
+/* Striped rows */
+.table-striped tr:nth-child(even) {
+    background-color: #F9F9F9; /* Light striped effect */
+}
+
+/* Additional styling for empty state */
+.no-results {
+    text-align: center; /* Centered text */
+    padding: 20px; /* Padding for empty state message */
+    color: #DBB0A3; /* Color for no results text */
+}
+
 
 /* Footer styling */
 footer {

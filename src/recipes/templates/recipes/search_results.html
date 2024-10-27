@@ -1,0 +1,18 @@
+{% extends 'recipes/recipes_home.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Search Recipes</h2>
+    <form method="GET" action="{% url 'recipes:search' %}">
+        {{ form.as_p }}
+        <button type="submit" class="btn">Search</button>
+    </form>
+<br>
+    {% if recipe_table %}
+        <h3>Results:</h3>
+        {{ recipe_table|safe }}
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</div>
+{% endblock content %}

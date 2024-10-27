@@ -22,7 +22,8 @@
             <ul class="nav-links">
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'recipes:list' %}">All Recipes</a></li>
-                <li><a href="{% url 'recipes:success' %}">Logout</a></li>
+                <li><a href="{% url 'recipes:search' %}">Search</a></li>
+                <li><a href="{% url 'recipes:logout' %}">Logout</a></li>
                 {% else %}
                 <li><a href="{% url 'recipes:login' %}">Login</a></li>
                 {% endif %}

@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import home, RecipeListView, RecipeDetailView, SuccessView
+from .views import home, RecipeListView, RecipeDetailView, RecipeSearchView
 
 app_name = 'recipes'
 
@@ -8,7 +8,7 @@ urlpatterns = [
    path('', home, name='home'),
    path('list/', RecipeListView.as_view(), name='list'),
    path('list/<int:pk>', RecipeDetailView.as_view(), name='detail'),
-   path('login/', LoginView.as_view(template_name='auth/login.html'), name='login'),
-   path('logout/', LogoutView.as_view(next_page='recipes:success'), name='logout'),
-   path('success/', SuccessView.as_view(), name='success'),
+   path('search/', RecipeSearchView.as_view(), name='search'),
+   path('login/', LoginView.as_view(template_name='auth/login.html', redirect_authenticated_user=True), name='login'),
+   path('logout/', LogoutView.as_view(template_name='recipes/success.html'), name='logout'),
 ]

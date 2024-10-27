@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from .models import Recipe
+from .forms import RecipeSearchForm
+from django.contrib.auth.models import User
 
 # Create your tests here.
 class RecipeModelTest(TestCase):
@@ -49,3 +51,36 @@ class RecipeModelTest(TestCase):
         self.assertEqual(recipe.get_absolute_url(), '/list/1')
 
     
+class RecipeFormTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.form_data_valid = {
+            'name': 'Pasta',
+            'ingredients': 'Tomato, Cheese',
+            'max_cooking_time': 30,
+            'difficulty': 'easy',  # Adjust according to your form definition
+            'category': 'lunch',
+        }
+
+    def test_valid_form(self):
+        form = RecipeSearchForm(data=self.form_data_valid)
+        print(form.errors)  # Print the errors to the console
+        self.assertTrue(form.is_valid())
+
+class RecipeSearchViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(username='testuser', password='testpass')
+
+    def setUp(self):
+        self.client.login(username='testuser', password='testpass')
+
+    def test_search_view_authenticated(self):
+        response = self.client.get(reverse('recipes:search'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'recipes/search_results.html')
+
+    def test_search_view_not_authenticated(self):
+        self.client.logout()  # Ensure the user is logged out
+        response = self.client.get(reverse('recipes:search'))
+        self.assertEqual(response.status_code, 302)  # Should redirect to login
