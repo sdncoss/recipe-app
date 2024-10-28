@@ -84,3 +84,55 @@ class RecipeSearchViewTest(TestCase):
         self.client.logout()  # Ensure the user is logged out
         response = self.client.get(reverse('recipes:search'))
         self.assertEqual(response.status_code, 302)  # Should redirect to login
+
+class AddRecipeViewTest(TestCase):
+    def setUp(self):
+        # Create a user and log them in
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+    
+
+    def test_add_recipe_page_renders_for_logged_in_user(self):
+        # Logged-in user should see the add recipe page
+        response = self.client.get(reverse('recipes:add'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'recipes/add_recipe.html')
+        self.assertContains(response, 'Add Recipe')  # Verifying if page title or heading is present
+
+    def test_add_recipe_successful_submission(self):
+        # Data for creating a new recipe
+        recipe_data = {
+            'name': 'Chocolate Cake',
+            'description': 'A delicious chocolate cake',
+            'cooking_time': 45,
+            'ingredients': 'Flour, Sugar, Cocoa, Baking Powder, Milk, Eggs',
+            'category': 'dessert',
+        }
+        
+        response = self.client.post(reverse('recipes:add'), data=recipe_data)
+        
+        # Verify that the form redirects to the recipe list page
+        self.assertRedirects(response, reverse('recipes:list'))
+        
+        # Check that the recipe was actually created in the database
+        self.assertEqual(Recipe.objects.count(), 1)
+        new_recipe = Recipe.objects.first()
+        self.assertEqual(new_recipe.name, 'Chocolate Cake')
+
+    def test_add_recipe_invalid_submission(self):
+        # Submit incomplete form data (missing required fields)
+        incomplete_data = {
+            'name': '',  # Name is required, so this will cause form validation to fail
+            'description': 'Incomplete recipe',
+            'cooking_time': 30,
+        }
+        
+        response = self.client.post(reverse('recipes:add'), data=incomplete_data)
+        
+        # Ensure that the form returns to the add recipe page without redirect
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'recipes/add_recipe.html')
+        
+        # Check that no new recipes were added to the database
+        self.assertEqual(Recipe.objects.count(), 0)
+        self.assertContains(response, 'This field is required')  # Checks error message on form

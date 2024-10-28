@@ -4,7 +4,6 @@
 .sqlite3
 #Productions exclusions
 .prod
-.settings
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
