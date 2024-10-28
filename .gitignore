@@ -2,6 +2,8 @@
 *.bak
 #Database
 .sqlite3
+#Productions exclusions
+.prod
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
